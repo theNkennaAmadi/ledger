@@ -1,4 +1,4 @@
-import{g as Gi}from"./index-CH-WybnR.js";import{S as zi}from"./ScrollTrigger-BCcE64-w.js";/*!
+import{g as Gi}from"./assets/index-CH-WybnR.js";import{S as zi}from"./assets/ScrollTrigger-BCcE64-w.js";/*!
  * matrix 3.11.5
  * https://greensock.com
  *
