@@ -5,7 +5,8 @@ export default {
             input: {
                 main: '/main.js', // The path should be relative to the project root
                 creative: '/creative.js',
-                typography: '/typography.js'
+                typography: '/typography.js',
+                about: '/about.js',
                 // Add more files as needed
             }
         }
