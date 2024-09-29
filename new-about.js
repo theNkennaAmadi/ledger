@@ -6,8 +6,13 @@ import { InertiaPlugin } from "gsap/InertiaPlugin";
 gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
 
 
-const wrapper = document.querySelector(".scroll-about");
-const boxes = gsap.utils.toArray(".col-wrapper");
+const wrapper = document.querySelector(".wrapper");
+const colors = ["#f38630","#6fb936", "#ccc", "#6fb936"];
+const boxes = gsap.utils.toArray(".box");
+
+gsap.set(boxes , {
+    backgroundColor: gsap.utils.wrap(colors)
+});
 
 const loop = horizontalLoop(boxes, {paused: true, draggable: true});
 
@@ -19,9 +24,9 @@ document.addEventListener("wheel", e => {
     loop.draggable.tween && loop.draggable.tween.kill();
 
     gsap.to(loop, {
-        progress: `+=${e.deltaY * 0.01}`,
+        progress: `+=${e.deltaY * 0.05}`,
         overwrite: true,
-        duration: 0.3,
+        duration: 0.2,
         modifiers: {
             progress: progressWrap
         }
@@ -123,8 +128,7 @@ function horizontalLoop(items, config) {
             },
             onDrag: align,
             onThrowUpdate: align,
-            inertia: true,
-            cursor: "unset",
+            //inertia: true,
             onRelease: syncIndex,
             onThrowComplete: () => gsap.set(proxy, {x: 0}) && syncIndex()
         })[0];
