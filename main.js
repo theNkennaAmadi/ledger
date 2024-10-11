@@ -44,6 +44,7 @@ class Home {
             path: 'https://cdn.prod.website-files.com/66e2c7184554159d93c61613/6708e9b21a29419e0ab3dbf5_MiniMap.json'
         });
         //console.log(this.map);
+        console.log('hello')
     }
 
     init() {
