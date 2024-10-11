@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Mask Effect</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .svg-container {
+            width: 100%;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="svg-container">
+    <svg width="1353" height="24" viewBox="0 0 1353 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_197_578)">
+            <g mask="url(#mask0_197_578)">
+                <mask id="lineMask">
+                    <rect width="100%" height="100%" fill="white"/>
+                    <path d="M0 1H150.752L172.592 22.84H614.686L636.526 1H675.573H677.428H716.475L738.315 22.84H1180.41L1202.25 1H1353" stroke="black" stroke-width="2" fill="none"/>
+                </mask>
+            </g>
+            <rect width="100%" height="100%" fill="red" mask="url(#lineMask)"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_197_578">
+                <rect width="1353" height="24" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>
+
+</div>
+</body>
+</html>

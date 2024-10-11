@@ -31,10 +31,7 @@
     "file": "main.js",
     "name": "main",
     "src": "main.js",
-    "isEntry": true,
-    "css": [
-      "assets/main-CJM_pN45.css"
-    ]
+    "isEntry": true
   },
   "typography.js": {
     "file": "typography.js",

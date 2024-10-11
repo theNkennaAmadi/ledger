@@ -96,3 +96,17 @@ class HorizontalScroller {
 document.addEventListener('DOMContentLoaded', () => {
     new HorizontalScroller('.sticky-child');
 });
+
+this.timelines = [
+    {name: 'downtown', start: 0.00, end: 3.18, element: this.container.querySelector('[data-point="hud"]'), text: '[01] Downtown'},
+    {name: 'nano square', start: 9.15, end: 12.35, element: this.container.querySelector('[data-point="brand"]'), text: '[02] Nano Square'},
+    {name: 'financial district', start: 18.15, end: 21.35, element: this.container.querySelector('[data-point="creative"]'), text: '[03] Financial District'},
+    {name: 'ledger hq', start: 27.15, end: 32.35, element: this.container.querySelector('[data-point="tone"]'), text: '[04] Ledger HQ'},
+];
+
+/*
+const logo = document.querySelector('.icon-logo');
+const start = document.querySelector('.')
+const path = `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`;
+
+ */
