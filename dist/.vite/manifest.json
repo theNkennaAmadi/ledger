@@ -31,7 +31,10 @@
     "file": "main.js",
     "name": "main",
     "src": "main.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_index-CH-WybnR.js"
+    ]
   },
   "typography.js": {
     "file": "typography.js",
