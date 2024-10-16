@@ -17,10 +17,10 @@ class Home {
         this.currentIndex = 0;
         this.mainVideo.currentTime = 0;
         this.timelines = [
-            {name: 'downtown', start: 0.00, end: 3.18, element: this.container.querySelector('[data-point="hud"]'), text: '[01] Downtown', textMobile: 'Downtown', lottiePercentage: 0, dataEgg: this.container.querySelector('[data-egg="hud"]')},
-            {name: 'nano square', start: 9.15, end: 12.35, element: this.container.querySelector('[data-point="brand"]'), text: '[02] Nano Square', textMobile: 'Nano Square', lottiePercentage: 25, dataEgg: this.container.querySelector('[data-egg="brand"]')},
-            {name: 'financial district', start: 18.15, end: 21.35, element: this.container.querySelector('[data-point="creative"]'), text: '[03] District', textMobile: 'District', lottiePercentage: 65, dataEgg: this.container.querySelector('[data-egg="creative"]')},
-            {name: 'ledger hq', start: 27.15, end: 30.35, element: this.container.querySelector('[data-point="tone"]'), text: '[04] Ledger HQ', textMobile: 'Ledger HQ', lottiePercentage: 95},
+            {name: 'downtown', start: 0.00, end: 3.18, element: this.container.querySelector('[data-point="hud"]'), text: '[01] Downtown', lottiePercentage: 0, dataEgg: this.container.querySelector('[data-egg="hud"]')},
+            {name: 'nano square', start: 9.15, end: 12.35, element: this.container.querySelector('[data-point="brand"]'), text: '[02] Nano Square', lottiePercentage: 25, dataEgg: this.container.querySelector('[data-egg="brand"]')},
+            {name: 'financial district', start: 18.15, end: 21.35, element: this.container.querySelector('[data-point="creative"]'), text: '[03] Financial District', lottiePercentage: 65, dataEgg: this.container.querySelector('[data-egg="creative"]')},
+            {name: 'ledger hq', start: 27.15, end: 30.35, element: this.container.querySelector('[data-point="tone"]'), text: '[04] Ledger HQ', lottiePercentage: 95},
         ];
         this.timePoints = this.timelines.map(t => t.start);
         this.dots = this.timelines.map(t => t.element);
@@ -29,11 +29,12 @@ class Home {
         this.interval = null;
         this.steps = 0;
         this.isTransitioning = false;
-        this.dotsDuration = 1
+        this.dotsDuration = 2
         this.dotsEase = 'expo.inOut'
         this.init();
         const lottieWebflow = Webflow.require("lottie").lottie;
         this.animations = lottieWebflow.getRegisteredAnimations();
+        //console.log(this.animations);
         this.map = this.animations.find(a => a.fileName=== '6634edb575decb69d5ec8012_MiniMap');
         this.map2 = lottie.loadAnimation({
             container: document.querySelector('#lottieContainer'),
@@ -42,17 +43,14 @@ class Home {
             autoplay: true,
             path: 'https://cdn.prod.website-files.com/66e2c7184554159d93c61613/6708e9b21a29419e0ab3dbf5_MiniMap.json'
         });
+        //console.log(this.map);
+        console.log('hello')
         this.transitionDuration = 6; // Adjust this value to control transition speed
-        this.easeFunction = "slow(0.5,0.1,false)"; // Smoother easing function
-        this.updateButtonText = this.updateButtonText.bind(this);
-        window.addEventListener('resize', this.updateButtonText);
+        this.easeFunction = "slow(0.5,0.4,false)"; // Smoother easing function
     }
 
     init() {
         gsap.set(this.dotsMarker, {rotate: -45});
-        const prevIndex = (this.currentIndex - 1 + this.timelines.length) % this.timelines.length;
-        const nextIndex = (this.currentIndex + 1) % this.timelines.length;
-        this.updateButtonText();
         this.introVideo.addEventListener('ended', () => {
             const mainTimeline = gsap.timeline();
 
@@ -84,7 +82,6 @@ class Home {
     }
 
     initMouseScrubbing() {
-
         let targetTime = this.mainVideo.currentTime;
         let lastTime = this.mainVideo.currentTime;
         let mouseX = 0;
@@ -117,15 +114,13 @@ class Home {
         };
 
         this.container.addEventListener('mousemove', (e) => {
-            if(window.innerWidth >991){
-                if (!this.isTransitioning && !this.isOut) {
-                    const rect = this.container.getBoundingClientRect();
-                    mouseX = e.clientX - rect.left;
+            if (!this.isTransitioning && !this.isOut) {
+                const rect = this.container.getBoundingClientRect();
+                mouseX = e.clientX - rect.left;
 
-                    // Start the smooth scrubbing if it's not already running
-                    if (!rafId) {
-                        rafId = requestAnimationFrame(smoothScrub);
-                    }
+                // Start the smooth scrubbing if it's not already running
+                if (!rafId) {
+                    rafId = requestAnimationFrame(smoothScrub);
                 }
             }
         });
@@ -216,30 +211,18 @@ class Home {
         const prevIndex = (this.currentIndex - 1 + this.timelines.length) % this.timelines.length;
         const nextIndex = (this.currentIndex + 1) % this.timelines.length;
 
-        const percentage = 50;
-        const duration = 0.5;
-
-        const isMobile = window.innerWidth < 768;
+        const percentage = 50
+        const duration = 0.5
 
         this.prevBtnText.forEach(element => {
             gsap.to(element, {opacity: 0, yPercent: percentage, duration: duration, onComplete: () => {
-                    gsap.to(element, {
-                        opacity: 1,
-                        yPercent: 0,
-                        text: isMobile ? this.timelines[prevIndex].textMobile : this.timelines[prevIndex].text,
-                        duration: duration
-                    });
+                    gsap.to(element, {opacity: 1, yPercent: 0, text: this.timelines[prevIndex].text, duration: duration});
                 }});
         });
 
         this.nextBtnText.forEach(element => {
-            gsap.to(element, {opacity: 0, yPercent: percentage, duration: duration, onComplete: () => {
-                    gsap.to(element, {
-                        opacity: 1,
-                        yPercent: 0,
-                        text: isMobile ? this.timelines[nextIndex].textMobile : this.timelines[nextIndex].text,
-                        duration: duration
-                    });
+            gsap.to(element, {opacity: 0, yPercent:percentage, duration: duration, onComplete: () => {
+                    gsap.to(element, {opacity: 1, yPercent:0, text: this.timelines[nextIndex].text , duration: duration});
                 }});
         });
     }
@@ -285,6 +268,6 @@ class Home {
 
 window.addEventListener('load', () => {
     setTimeout(() => {
-        new Home(document.querySelector('.wrapper'));
+      new Home(document.querySelector('.wrapper'));
     }, 500);
 });
