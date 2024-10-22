@@ -161,21 +161,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the video element
     const video = document.querySelector(".c-video");
 
+    // Create a proxy value for tracking progress (0 to 1)
+    let progress = 0;
 
     // Play and pause the video to 'activate' it on iOS
     video.play().then(() => {
         video.pause();
     });
 
-    // Create our animation
-    gsap.to(video, {
+    // Update video time based on progress
+    const updateVideo = () => {
+        video.currentTime = progress * video.duration;
+    };
+
+    // Create our animation using the proxy value
+    gsap.to({}, {
         scrollTrigger: {
             trigger: ".wrapper",
             start: "top top",
             end: "bottom bottom",
             scrub: true,
+            onUpdate: (self) => {
+                // Update progress value (0 to 1)
+                progress = self.progress;
+                updateVideo();
+            }
         },
-        currentTime: video.duration,
         ease: 'power3.in',
     });
 });
