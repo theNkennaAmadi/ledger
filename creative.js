@@ -158,16 +158,16 @@ setTimeout(function () {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Get our video element
+    // Get the video element
     const video = document.querySelector(".c-video");
 
-
+    // Set the video to the start
     video.currentTime = 0;
 
+    // Play and pause the video to 'activate' it on iOS
     video.play().then(() => {
         video.pause();
     });
-
 
     // Create our animation
     gsap.to(video, {
@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power3.in',
     });
 
+    //console.log(video);
 });
 
 
