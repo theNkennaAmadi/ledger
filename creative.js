@@ -166,9 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Play and pause the video to 'activate' it on iOS
     video.play().then(() => {
-        video.pause().then(()=>{
-            console.log("Video activated");
-        });
+        video.pause()
     });
 
     // Create our animation
