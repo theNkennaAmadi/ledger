@@ -1,8 +1,10 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Set up our scroll trigger
 gsap.registerPlugin(ScrollTrigger);
 
+/*
 class SmoothVideoScrollScrubber {
     constructor(videoClassName = 'c-video-bg') {
         this.videos = Array.from(document.getElementsByClassName(videoClassName));
@@ -70,12 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
    // new SmoothVideoScrollScrubber('c-video-bg');
 });
 
+ */
 
+
+/*
 const video = document.querySelector(".c-video-bg");
 let src = video.currentSrc || video.src;
 console.log(video, src);
 
+ */
+
 /* Make sure the video is 'activated' on iOS */
+/*
 function once(el, event, fn, opts) {
     var onceFn = function (e) {
         el.removeEventListener(event, onceFn);
@@ -90,9 +98,12 @@ once(document.documentElement, "touchstart", function (e) {
     video.pause();
 });
 
+ */
+
 /* ---------------------------------- */
 /* Scroll Control! */
 
+/*
 gsap.registerPlugin(ScrollTrigger);
 
 let tl = gsap.timeline({
@@ -117,22 +128,58 @@ once(video, "loadedmetadata", () => {
     );
 });
 
+ */
+
 /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
+/*
 setTimeout(function () {
     if (window["fetch"]) {
         fetch(src)
             .then((response) => response.blob())
             .then((response) => {
                 var blobURL = URL.createObjectURL(response);
+                console.log(blobURL);
 
                 var t = video.currentTime;
                 once(document.documentElement, "touchstart", function (e) {
                     video.play();
                     video.pause();
                 });
+                console.log(t)
 
                 video.setAttribute("src", blobURL);
                 video.currentTime = t + 0.01;
             });
     }
 }, 1000);
+
+ */
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Get our video element
+    const video = document.querySelector(".c-video");
+
+
+    video.currentTime = 0;
+
+    video.play();
+    video.pause();
+
+    // Create our animation
+    gsap.to(video, {
+        scrollTrigger: {
+            trigger: ".wrapper",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+        },
+        currentTime: video.duration,
+        ease: 'power3.in',
+    });
+
+});
+
+
+
