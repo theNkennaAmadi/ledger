@@ -161,12 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the video element
     const video = document.querySelector(".c-video");
 
-    // Set the video to the start
-    video.currentTime = 0;
 
     // Play and pause the video to 'activate' it on iOS
     video.play().then(() => {
-        video.pause()
+        video.pause();
     });
 
     // Create our animation
@@ -180,8 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTime: video.duration,
         ease: 'power3.in',
     });
-
-    //console.log(video);
 });
 
 
