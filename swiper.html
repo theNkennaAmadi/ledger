@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Swiper demo</title>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Observer.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            slidesPerView: 3,
+            spaceBetween: 30,
+            speed: 500,
+            allowTouchMove: true,
+        });
+
+        gsap.registerPlugin(Observer);
+
+        let isTransitioning = false;
+        let lastScrollTime = 0;
+        const scrollCooldown = 750; // Minimum time between scroll events in milliseconds
+
+        Observer.create({
+            target: window,
+            type: "wheel,touch",
+            onUp: () => {
+                const currentTime = Date.now();
+                if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
+                    console.log("scroll up");
+                    isTransitioning = true;
+                    window.innerWidth > 768 ? swiper.slidePrev() : swiper.slideNext();
+                    lastScrollTime = currentTime;
+
+                    // Reset the transitioning flag after animation completes
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, swiper.params.speed + 50);
+                }
+            },
+            onDown: () => {
+                const currentTime = Date.now();
+                if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
+                    isTransitioning = true;
+                    window.innerWidth > 768 ? swiper.slideNext() : swiper.slidePrev();
+                    lastScrollTime = currentTime;
+
+                    // Reset the transitioning flag after animation completes
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, swiper.params.speed + 50);
+                }
+            },
+            tolerance: 30,
+            lockAxis: true,
+            preventDefault: true
+        });
+    });
+</script>
+</body>
+</html>

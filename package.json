@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "gsap": "file:gsap-bonus.tgz",
-    "lottie-web": "^5.12.2"
+    "lottie-web": "^5.12.2",
+    "swiper": "^11.1.14"
   }
 }

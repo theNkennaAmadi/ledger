@@ -1,0 +1,31 @@
+.slider {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
+}
+
+.slides {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.1s linear;
+}
+
+.slide {
+    flex: 0 0 50vw;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    font-family: system-ui, sans-serif;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    user-select: none;
+}

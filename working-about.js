@@ -2,12 +2,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
-import {Observer} from "gsap/Observer";
-import Swiper from "swiper";
 
 gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
 
 
+const wrapper = document.querySelector(".scroll-about");
 const boxes = gsap.utils.toArray(".col-wrapper");
 const items = [...document.querySelectorAll('.col')];
 
@@ -169,6 +168,343 @@ const animatedItems = items.map(item => new AnimatedItem(item));
 
 
 /*
+items.forEach((item, i) => {
+    const abContent = item.querySelector('.about-content-parent');
+    const fadeIn = item.querySelector('.fade-in');
+    const mono = [...item.querySelectorAll('.mono')];
+    const bdrBtm = item.querySelector('.border-line-btm');
+    const bdrTop = item.querySelector('.border-line-top');
+    const imgCover = item.querySelector('.img-cover');
+    const heading = item.querySelector('.heading-xx-small');
+    const bgWipe = item.querySelector('.bg-whipe');
+
+    // Initial states
+    const resetElements = () => {
+        gsap.set(abContent, {display: 'none'});
+        gsap.set(bdrTop, {width: '100%'});
+        gsap.set(bdrBtm, {width: '0%'});
+        gsap.set(imgCover, {scale: 1});
+        gsap.set(bgWipe, {opacity: 0, width: '102%', height: '0%'});
+        gsap.set(mono, {y: '200%'});
+        gsap.set(heading, {y: '100%'});
+        gsap.set(fadeIn, {opacity: 0});
+    };
+
+    resetElements();
+
+    const tlIn = gsap.timeline({
+        paused: true,
+        onReverseComplete: resetElements
+    });
+
+    tlIn.set(abContent, {display: 'block', duration: 0.1})
+        .to(bdrTop, {width: '0%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(imgCover, {scale: 1.2, duration: 1, ease: 'expo.inOut'}, '<')
+        .to(bdrBtm, {width: '100%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, {opacity: 1, width: '102%', height: '102%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(mono, {y: '0%', duration: 1, ease: 'expo.inOut'}, "<0.1")
+        .to(heading, {y: '0%', duration: 1, ease: 'expo.inOut'}, "<")
+        .to(fadeIn, {opacity: 1, duration: 1}, "<0.1");
+
+    const tlOut = gsap.timeline({
+        paused: true,
+        onComplete: resetElements
+    });
+
+    tlOut.to(fadeIn, {opacity: 0, duration: 0.5})
+        .to(bdrBtm, {width: '0%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(bdrTop, {width: '100%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(mono, {y: '200%', duration: 0.5, ease: 'expo.inOut'}, '<0.1')
+        .to(heading, {y: '100%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, {width: '102%', height: '0%', duration: 1, ease: 'expo.inOut'}, '<0.3')
+        .to(imgCover, {scale: 1, duration: 1, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, {opacity: 0, duration: 0.5, ease: 'power1.inOut'}, '<0.4')
+        .set(abContent, {display: 'none', duration: 0.1}, '>');
+
+    let isAnimating = false;
+    let isOpen = false;
+
+    item.addEventListener('click', () => {
+        if (isAnimating) return;
+
+        isAnimating = true;
+
+        if (!isOpen) {
+            tlIn.restart();
+            tlIn.eventCallback('onComplete', () => {
+                isAnimating = false;
+                isOpen = true;
+            });
+        } else {
+            tlOut.restart();
+            tlOut.eventCallback('onComplete', () => {
+                isAnimating = false;
+                isOpen = false;
+                resetElements();
+            });
+        }
+    });
+});
+
+ */
+
+
+/*
+items.forEach((item, i) => {
+    const abContent = item.querySelector('.about-content-parent');
+    const fadeIn = item.querySelector('.fade-in');
+    const mono = [...item.querySelectorAll('.mono')];
+    const bdrBtm = item.querySelector('.border-line-btm');
+    const bdrTop = item.querySelector('.border-line-top');
+    const imgCover = item.querySelector('.img-cover');
+    const heading = item.querySelector('.heading-xx-small');
+    const bgWipe = item.querySelector('.bg-whipe');
+
+
+    gsap.set(abContent, {display: 'none'});
+    gsap.set(bdrTop, {width: '100%'});
+    gsap.set(bdrBtm, {width: '0%'});
+    gsap.set(imgCover, {scale: 1});
+    gsap.set(bgWipe, {opacity: 0, width: '102%', height: '0%'});
+    gsap.set(mono, {y: '200%'});
+    gsap.set(heading, {y: '100%'});
+    gsap.set(fadeIn, {opacity: 0});
+
+
+    const tlIn = gsap.timeline({paused: true});
+    tlIn.set(abContent,  {display:'block', duration:0.1})
+        .to(bdrTop, {width: '0%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(imgCover, {scale:1.2, duration: 1, ease: 'expo.inOut'}, '<')
+        .to(bdrBtm,  {width: '100%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, {opacity: 1, width: '102%', height: '102%', duration: 1, ease: 'expo.inOut'}, '<')
+        .to(mono,  {y: '0%', duration: 1, ease: 'expo.inOut'}, "<0.1")
+        .to(heading,  {y: '0%', duration: 1, ease: 'expo.inOut'}, "<")
+        .to(fadeIn, {opacity: 1, duration: 2}, "<0.1")
+
+
+    const tlOut = gsap.timeline({paused: true});
+    tlOut.to(fadeIn, {opacity: 0, duration: 0.5})
+        .to(bdrBtm, {width: '0%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(bdrTop, {width: '100%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(mono, {y: '200%', duration: 0.5, ease: 'expo.inOut'}, '<0.1')
+        .to(heading, {y: '100%', duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, { width: '102%', height: '0%', duration: 0.5, ease: 'expo.inOut'}, '<0.3')
+        .to(imgCover, {scale: 1, duration: 0.5, ease: 'expo.inOut'}, '<')
+        .to(bgWipe, {opacity: 0, duration: 0.5, ease: 'expo.inOut'}, '<0.4')
+        .set(abContent, {display: 'none', duration: 0.1}, '<0.6')
+
+
+
+    let played = false;
+
+    item.addEventListener('click', ()=>{
+        played ? tlOut.restart(): tlIn.restart();
+        played = !played;
+    })
+});
+
+ */
+
+
+
+
+
+/*
+class AnimationController {
+    constructor(item) {
+        this.item = item;
+        this.isAnimating = false;
+        this.elements = {
+            abContent: item.querySelector('.about-content-parent'),
+            fadeIn: item.querySelector('.fade-in'),
+            mono: [...item.querySelectorAll('.mono')],
+            bdrBtm: item.querySelector('.border-line-btm'),
+            bdrTop: item.querySelector('.border-line-top'),
+            imgCover: item.querySelector('.img-cover'),
+            heading: item.querySelector('.heading-xx-small'),
+            bgWipe: item.querySelector('.bg-whipe')
+        };
+
+        this.initializeStates();
+        this.createTimelines();
+        this.setupEventListeners();
+    }
+
+    initializeStates() {
+        gsap.set(this.elements.abContent, { display: 'none' });
+        gsap.set(this.elements.bdrTop, { width: '100%' });
+        gsap.set(this.elements.bdrBtm, { width: '0%' });
+        gsap.set(this.elements.imgCover, { scale: 1 });
+        gsap.set(this.elements.bgWipe, { opacity: 0, width: '102%', height: '0%' });
+        gsap.set(this.elements.mono, { y: '200%' });
+        gsap.set(this.elements.heading, { y: '100%' });
+        gsap.set(this.elements.fadeIn, { opacity: 0 });
+    }
+
+    createTimelines() {
+        // Animation In Timeline
+        this.tlIn = gsap.timeline({
+            paused: true,
+            defaults: {
+                ease: "expo.out",
+                duration: 1
+            },
+            onComplete: () => {
+                this.isAnimating = false;
+            }
+        });
+
+        this.tlIn
+            .set(this.elements.abContent, { display: 'block' })
+            .addLabel('start')
+            .to(this.elements.bdrTop, {
+                width: '0%',
+                duration: 1
+            }, 'start')
+            .to(this.elements.imgCover, {
+                scale: 1.2,
+                duration: 1
+            }, 'start')
+            .to(this.elements.bdrBtm, {
+                width: '100%',
+                duration: 1
+            }, '<')
+            .to(this.elements.bgWipe, {
+                opacity: 1,
+                height: '102%',
+                duration: 1
+            }, '<')
+            .to(this.elements.mono, {
+                y: '0%',
+                duration: 1
+            }, '<0.1')
+            .to(this.elements.heading, {
+                y: '0%',
+                duration:1
+            }, '<')
+            .to(this.elements.fadeIn, {
+                opacity: 1,
+                duration: 2
+            }, '<');
+
+        // Animation Out Timeline
+        this.tlOut = gsap.timeline({
+            paused: true,
+            defaults: {
+                ease: "expo.inOut",
+                duration: 0.5
+            },
+            onComplete: () => {
+                this.isAnimating = false;
+            }
+        });
+
+        this.tlOut
+            .addLabel('exit')
+            .to(this.elements.fadeIn, {
+                opacity: 0,
+                duration: 0.5
+            }, 'exit')
+
+
+            .to(this.elements.bdrBtm, {
+                width: '0%'
+            }, '<')
+            .to(this.elements.bdrTop, {
+                width: '100%'
+            }, '<')
+            .to(this.elements.mono, {
+                y: '200%',
+                duration: 0.5
+            }, '<0.1')
+            .to(this.elements.heading, {
+                y: '100%',
+                duration: 0.5
+            }, '<')
+            .to(this.elements.bgWipe, {
+                height: '0%',
+                opacity: 0,
+                duration: 0.5
+            }, '<0.3')
+            .to(this.elements.imgCover, {
+                scale: 1,
+                duration: 0.7
+            }, '<')
+            .set(this.elements.abContent, {
+                display: 'none'
+            }, ">");
+    }
+
+    setupEventListeners() {
+        this.item.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.handleClick();
+        });
+    }
+
+    async handleClick() {
+        // Prevent multiple animations from running simultaneously
+        if (this.isAnimating) return;
+
+        try {
+            this.isAnimating = true;
+
+            if (activeItem === this) {
+                // Close current item
+                await this.close();
+                activeItem = null;
+            } else {
+                // Close previous item if exists
+                if (activeItem) {
+                    await activeItem.close();
+                }
+                // Open new item
+                await this.open();
+                activeItem = this;
+            }
+        } catch (error) {
+            console.error('Animation error:', error);
+            // Reset state in case of error
+            this.isAnimating = false;
+            this.initializeStates();
+        }
+    }
+
+    open() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.tlIn.restart();
+                this.tlIn.eventCallback('onComplete', () => {
+                    this.isAnimating = false;
+                    resolve();
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    close() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.tlOut.restart();
+                this.tlOut.eventCallback('onComplete', () => {
+                    this.isAnimating = false;
+                    resolve();
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+}
+
+// Initialize animations for all items
+const controllers = items.map(item => new AnimationController(item));
+
+ */
+
+
 
 const loop = horizontalLoop(boxes, {paused: true, draggable: true});
 
@@ -189,8 +525,6 @@ document.addEventListener("wheel", e => {
     })
 });
 
- */
-
 
 /*
 This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
@@ -206,7 +540,6 @@ Features:
    - current() - returns the current index (if an animation is in-progress, it reflects the final index)
    - times - an Array of the times on the timeline where each element hits the "starting" spot. There's also a label added accordingly, so "label1" is when the 2nd element reaches the start.
  */
-/*
 function horizontalLoop(items, config) {
     items = gsap.utils.toArray(items);
     config = config || {};
@@ -298,66 +631,3 @@ function horizontalLoop(items, config) {
 
     return tl;
 }
-
- */
-
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const swiper = new Swiper(".swiper", {
-        loop: true,
-        slidesPerView: 'auto',
-        spaceBetween: 0,
-        speed: 500,
-        allowTouchMove: false,
-    });
-
-    gsap.registerPlugin(Observer);
-
-    let isTransitioning = false;
-    let lastScrollTime = 0;
-    const scrollCooldown = 750; // Minimum time between scroll events in milliseconds
-
-    Observer.create({
-        target: window,
-        type: "wheel,touch",
-        onUp: () => {
-            const currentTime = Date.now();
-            if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
-                isTransitioning = true;
-                if(window.innerWidth>991){
-                    swiper.slidePrev();
-                }else{
-                    swiper.slideNext();
-                }
-                lastScrollTime = currentTime;
-
-                gsap.set('.swiper-wrapper', {paddingLeft: 0});
-
-                // Reset the transitioning flag after animation completes
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, swiper.params.speed + 50);
-            }
-        },
-        onDown: () => {
-            const currentTime = Date.now();
-            if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
-                isTransitioning = true;
-                if(window.innerWidth>991){
-                    swiper.slideNext();
-                }else{
-                    swiper.slidePrev();
-                }
-                lastScrollTime = currentTime;
-
-                // Reset the transitioning flag after animation completes
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, swiper.params.speed + 50);
-            }
-        },
-        tolerance: 50,
-        lockAxis: true,
-        preventDefault: true
-    });
-});

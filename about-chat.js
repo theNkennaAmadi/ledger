@@ -2,8 +2,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
-import {Observer} from "gsap/Observer";
-import Swiper from "swiper";
 
 gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
 
@@ -168,7 +166,6 @@ class AnimatedItem {
 const animatedItems = items.map(item => new AnimatedItem(item));
 
 
-/*
 
 const loop = horizontalLoop(boxes, {paused: true, draggable: true});
 
@@ -189,8 +186,6 @@ document.addEventListener("wheel", e => {
     })
 });
 
- */
-
 
 /*
 This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
@@ -206,7 +201,6 @@ Features:
    - current() - returns the current index (if an animation is in-progress, it reflects the final index)
    - times - an Array of the times on the timeline where each element hits the "starting" spot. There's also a label added accordingly, so "label1" is when the 2nd element reaches the start.
  */
-/*
 function horizontalLoop(items, config) {
     items = gsap.utils.toArray(items);
     config = config || {};
@@ -298,66 +292,3 @@ function horizontalLoop(items, config) {
 
     return tl;
 }
-
- */
-
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const swiper = new Swiper(".swiper", {
-        loop: true,
-        slidesPerView: 'auto',
-        spaceBetween: 0,
-        speed: 500,
-        allowTouchMove: false,
-    });
-
-    gsap.registerPlugin(Observer);
-
-    let isTransitioning = false;
-    let lastScrollTime = 0;
-    const scrollCooldown = 750; // Minimum time between scroll events in milliseconds
-
-    Observer.create({
-        target: window,
-        type: "wheel,touch",
-        onUp: () => {
-            const currentTime = Date.now();
-            if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
-                isTransitioning = true;
-                if(window.innerWidth>991){
-                    swiper.slidePrev();
-                }else{
-                    swiper.slideNext();
-                }
-                lastScrollTime = currentTime;
-
-                gsap.set('.swiper-wrapper', {paddingLeft: 0});
-
-                // Reset the transitioning flag after animation completes
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, swiper.params.speed + 50);
-            }
-        },
-        onDown: () => {
-            const currentTime = Date.now();
-            if (!isTransitioning && currentTime - lastScrollTime > scrollCooldown) {
-                isTransitioning = true;
-                if(window.innerWidth>991){
-                    swiper.slideNext();
-                }else{
-                    swiper.slidePrev();
-                }
-                lastScrollTime = currentTime;
-
-                // Reset the transitioning flag after animation completes
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, swiper.params.speed + 50);
-            }
-        },
-        tolerance: 50,
-        lockAxis: true,
-        preventDefault: true
-    });
-});
