@@ -156,6 +156,7 @@ setTimeout(function () {
  */
 
 
+console.log('creatievss')
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get the video element
@@ -179,10 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: ".wrapper",
             start: "top top",
-            end: "bottom bottom",
+            end: "83% bottom",
             scrub: true,
             onUpdate: (self) => {
                 // Update progress value (0 to 1)
+                console.log(self.progress)
                 progress = self.progress;
                 updateVideo();
             }
