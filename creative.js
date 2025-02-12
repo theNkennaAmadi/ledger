@@ -156,8 +156,6 @@ setTimeout(function () {
  */
 
 
-console.log('creatievss')
-
 document.addEventListener('DOMContentLoaded', () => {
     // Get the video element
     const video = document.querySelector(".c-video");
